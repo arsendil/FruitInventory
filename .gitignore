@@ -1,0 +1,17 @@
+# Python
+backend/.venv/
+__pycache__/
+*.py[cod]
+
+# Secrets
+.env
+
+# Generated gRPC source files
+*_pb2.py
+*_pb2_grpc.py
+
+# Qt / CMake build output
+build/
+client/build/
+CMakeCache.txt
+CMakeFiles/
