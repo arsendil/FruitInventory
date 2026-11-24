@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package fruitinventory.v1;
+
+service InventoryService {
+  rpc ListFruits(ListFruitsRequest) returns (ListFruitsResponse);
+  rpc CreateFruit(CreateFruitRequest) returns (Fruit);
+  rpc ChangeStock(ChangeStockRequest) returns (StockChangeResponse);
+  rpc ListMovements(ListMovementsRequest) returns (ListMovementsResponse);
+}
+
+message ListFruitsRequest {
+}
+
+message Fruit {
+  int64 id = 1;
+  string name = 2;
+  int64 quantity_grams = 3;
+}
+
+message ListFruitsResponse {
+  repeated Fruit fruits = 1;
+}
+
+message CreateFruitRequest {
+  string name = 1;
+  int64 initial_quantity_grams = 2;
+}
+
+enum MovementType {
+  MOVEMENT_TYPE_UNSPECIFIED = 0;
+  MOVEMENT_TYPE_RECEIVE = 1;
+  MOVEMENT_TYPE_DISPATCH = 2;
+}
+
+message ChangeStockRequest {
+  int64 fruit_id = 1;
+  MovementType type = 2;
+  int64 quantity_grams = 3;
+  string note = 4;
+}
+
+message StockChangeResponse {
+  Fruit fruit = 1;
+}
+
+message Movement {
+  int64 id = 1;
+  int64 fruit_id = 2;
+  string fruit_name = 3;
+  MovementType type = 4;
+  int64 quantity_grams = 5;
+  string note = 6;
+  string performed_by = 7;
+  int64 created_at_unix = 8;
+}
+
+message ListMovementsRequest {
+  int32 limit = 1;
+}
+
+message ListMovementsResponse {
+  repeated Movement movements = 1;
+}
+
